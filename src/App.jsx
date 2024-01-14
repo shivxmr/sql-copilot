@@ -9,15 +9,17 @@ function App() {
   return (
     <>
       <MainNav />
-      <div className="container mx-auto m-10 flex flex-col items-center">
-        <div className="mt-5 flex lg:flex-row pb-5">
-          <Input placeholder="Enter your query here!" className="w-full mr-3" />
-          <Button className="lg:w-auto">Submit</Button>
+      <div className="container mx-auto w-screen m-3 flex flex-col items-center">
+        <div className="flex w-screen pb-5">
+          <Input placeholder="Enter your query here!" className="mr-2 ml-4" />
+          <Button className='mr-4'>Submit</Button>
         </div>
 
-        <CarouselCard />
-        <Label htmlFor="message">SQL Code</Label>
-        <Textarea placeholder="Generated SQL Code will appear here!" className="mt-8 w-full" />
+        {/* <CarouselCard /> */}
+        <div className="grid w-screen gap-1.5">
+          <Label className='ml-5' htmlFor="message">SQL Code</Label>
+          <Textarea placeholder="Generated SQL code will appear here!" className='ml-4 mr-4' />
+        </div>
       </div>
     </>
   );
