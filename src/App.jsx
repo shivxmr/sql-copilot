@@ -70,45 +70,11 @@ function App() {
           <Button className='mr-4' onClick={handleSubmit}>Submit</Button>
         </div>
 
-        {loading && !showContent ? (
-          <Loader /> // Show the loader only when loading is true and content is not yet fetched
-        ) : (
-          <div className="grid w-screen gap-1.5 ml-10">
-            {showContent && (
-              <>
-                <div className="flex justify-between w-screen pb-2">
-                  <Label htmlFor="message">SQL Code</Label>
-                  <Label>SQL Code Generation Time: {sqlGenTime} seconds</Label>
-                </div>
-                <Textarea
-                  placeholder="Generated SQL code will appear here!"
-                  className='mr-6'
-                  value={sqlCode}
-                  onChange={null}
-                />
-                <Label className='mt-2'>Chatbot Response Time: {chatbotRespTime} seconds</Label>
-                <Label className='mt-2'>Tables</Label>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.map((row, index) => (
-                      <tr key={index}>
-                        <td>{row[0]}</td>
-                        <td>{row[1]}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <Label className='mt-2'>SQL Executed Time: {sqlExecTime} seconds</Label>
-              </>
-            )}
-          </div>
-        )}
+        {/* <CarouselCard /> */}
+        <div className="grid w-screen gap-1.5">
+          <Label className='ml-5' htmlFor="message">SQL Code</Label>
+          <Textarea placeholder="Generated SQL code will appear here!" className='ml-4 mr-4' />
+        </div>
       </div>
     </>
   );
