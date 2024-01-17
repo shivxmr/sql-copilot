@@ -27,7 +27,7 @@ const chatWindowStyles = {
     flexShrink: 0,
   },
   messagesContainer: {
-    flexGrow: 1,
+    // flexGrow: 1,
     overflow: "auto",
     // marginBottom: "1rem",
     padding: "0rem",
@@ -158,7 +158,7 @@ const chatWindowStyles = {
 };
 
 function App() {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("Default Text");
   const [sqlCode, setSqlCode] = useState("");
   const [sqlGenTime, setSqlGenTime] = useState(null);
   const [chatbotRespTime, setChatbotRespTime] = useState(null);
@@ -167,9 +167,11 @@ function App() {
 
   const [loading, setLoading] = useState(false); // Add loading state
   const [showContent, setShowContent] = useState(false); // Add state to control content visibility
+  const [newMessage, setNewMessage] = useState("");
 
   const handleSubmit = async () => {
     setLoading(true); // Set loading to true before making the API call
+    setNewMessage(query);
     // Make a POST request to the server with the user's query
     const response = await fetch("http://localhost:8005/pipeline", {
       method: "POST",
@@ -221,8 +223,8 @@ function App() {
             // flexGrow: 3,
             display: "flex",
             flexDirection: "column",
-            justifyContent: "space-between",
-            alignItems: "top",
+            // justifyContent: "space-evenly",
+            // alignItems: "bottom",
             width: "100%",
             height: "85vh",
             backgroundColor: "white",
@@ -233,48 +235,63 @@ function App() {
           {/* {loading && !showContent ? (
           <Loader /> // Show the loader only when loading is true and content is not yet fetched
         ) : ( */}
-          <Box
-            className="Message Contents"
-            sx={{
-              m: "4rem 0rem 0rem 3rem",
-              width: "50rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "1rem",
-              backgroundColor: "yellow",
-              p: "1rem",
-              borderRadius: "1rem 1rem 1rem 0rem",
-            }}
-            // className="grid w-screen gap-1.5 ml-10"
-          >
-            {/* {showContent && ( */}
-            {/* <> */}
+          <Box sx={chatWindowStyles.messagesContainer}>
             <Box
               sx={{
-                backgroundColor: "#8CEAFF",
-                color: "black",
-                borderRadius: "0.5rem",
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                p: "0.6rem",
-                // height: "10rem",
+                alignItems: "flex-end",
               }}
             >
-              <Typography
-              // className="mt-2"
+              <Box
+                className="query"
+                // key={index}
+                style={{
+                  display: "flex",
+                  flexDirection: "row-reverse",
+                  justifyContent: "center",
+                  alignItems: "flex-end",
+                  backgroundColor: "#c7efff",
+                  width: "100%",
+                  marginBottom: "8px",
+                  borderRadius: "1rem 1rem 0rem 1rem",
+                  boxShadow: "5px 4px 15px 4px rgba(0, 0, 0, 0.07)",
+                  padding: "1rem",
+                  color: "black",
+                  margin: "2rem 2rem 1rem 1rem",
+                  maxWidth: "35rem",
+                  fontSize: "1rem",
+                }}
               >
-                Chatbot Response Time: {chatbotRespTime} seconds
-              </Typography>
+                <Typography variant="h7">{query}</Typography>
+              </Box>
             </Box>
             <Box
+              className="response"
               sx={{
+                backgroundColor: "#8CEAFF",
+                width: "fit-content",
+                marginBottom: "8px",
+                borderRadius: "1rem 1rem 1rem 0rem",
+                boxShadow: "5px 4px 15px 4px rgba(0, 0, 0, 0.07)",
+                padding: "1rem",
+                color: "black",
+                margin: "1rem 0rem 1rem 1rem",
+                maxWidth: "80%",
+                fontSize: "1rem",
+                m: "1rem 0rem 0rem 2rem",
+                width: "70rem",
                 display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
+                flexDirection: "column",
+                gap: "1rem",
+                backgroundColor: "#2155BF",
+                p: "1rem",
+                borderRadius: "1rem 1rem 1rem 0rem",
               }}
+              // className="grid w-screen gap-1.5 ml-10"
             >
+              {/* {showContent && ( */}
+              {/* <> */}
               <Box
                 sx={{
                   backgroundColor: "#8CEAFF",
@@ -284,69 +301,96 @@ function App() {
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
-                  p: "1rem",
+                  p: "0.6rem",
+                  // height: "10rem",
                 }}
               >
-                <Typography htmlFor="message">SQL Code</Typography>
-                <TextField
-                  placeholder="Generated SQL code will appear here!"
-                  // className="mr-6"
-                  value={sqlCode}
-                  onChange={null}
-                  multiline
-                  sx={{
-                    color: "white",
-                    width: "20rem",
-                    m: "1rem",
-                  }}
-                />
-                <Typography>
-                  SQL Code Generation Time: {sqlGenTime} seconds
-                </Typography>
                 <Typography
                 // className="mt-2"
                 >
-                  SQL Executed Time: {sqlExecTime} seconds
+                  Chatbot Response Time: {chatbotRespTime} seconds
                 </Typography>
-                {/* <Typography
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Box
+                  sx={{
+                    backgroundColor: "#8CEAFF",
+                    color: "black",
+                    borderRadius: "0.5rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    p: "1rem",
+                  }}
+                >
+                  <Typography htmlFor="message">SQL Code</Typography>
+                  <TextField
+                    placeholder="Generated SQL Code will appear here"
+                    // className="mr-6"
+                    value={sqlCode}
+                    onChange={null}
+                    multiline
+                    sx={{
+                      color: "white",
+                      width: "20rem",
+                      m: "1rem",
+                    }}
+                  />
+                  <Typography>
+                    SQL Code Generation Time: {sqlGenTime} seconds
+                  </Typography>
+                  <Typography
+                  // className="mt-2"
+                  >
+                    SQL Executed Time: {sqlExecTime} seconds
+                  </Typography>
+                  {/* <Typography
               // className="mt-2"
               >
                 Tables
               </Typography> */}
-              </Box>
-              <Box
-                sx={{
-                  backgroundColor: "#8CEAFF",
-                  color: "black",
-                  borderRadius: "0.5rem",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "left",
-                  alignItems: "center",
-                  p: "1rem",
-                  width: "100%",
-                  ml: "1rem",
-                }}
-              >
-                <table>
-                  <thead>
-                    <tr>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.map((row, index) => (
-                      <tr key={index}>
-                        <td>{row[0]}</td>
-                        <td>{row[1]}</td>
+                </Box>
+                <Box
+                  sx={{
+                    backgroundColor: "#8CEAFF",
+                    color: "black",
+                    borderRadius: "0.5rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "left",
+                    alignItems: "center",
+                    p: "1rem",
+                    width: "100%",
+                    ml: "1rem",
+                  }}
+                >
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {data.map((row, index) => (
+                        <tr key={index}>
+                          <td>{row[0]}</td>
+                          <td>{row[1]}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </Box>
+                {/* </> */}
+                {/* )} */}
               </Box>
-              {/* </> */}
-              {/* )} */}
             </Box>
           </Box>
           <Box
