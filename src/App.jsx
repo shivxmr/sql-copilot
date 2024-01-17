@@ -60,29 +60,28 @@ function App() {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "row",
-          mt: "0.7em",
-          maxHeight: "100%",
-          width: "100%",
+          flexDirection: "row", // Change to column
+          alignItems: "center", // Center horizontally
+          justifyContent: "center", // Center vertically
+          minHeight: "100vh", // Set minHeight to 100vh for full height
           background: "linear-gradient(103deg, #2155BF 0%, #29D9FF 100.37%);",
           p: "1rem 3rem",
-          justifyContent: "center",
           overflow: "hidden",
-          // alignItems: "center",
         }}
       >
         <Box
           sx={{
-            // flexGrow: 3,
             display: "flex",
             flexDirection: "column",
-            // justifyContent: "space-evenly",
-            // alignItems: "bottom",
             width: "100%",
             height: "85vh",
             backgroundColor: "white",
             borderRadius: "2rem",
             mt: "3.5rem",
+
+            // flexGrow: 3,
+            // justifyContent: "space-evenly",
+            // alignItems: "bottom",
           }}
         >
           {loading && !showContent ? (

@@ -10,6 +10,14 @@
   transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
 }
 
+.loader-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999; /* Ensure the loader is above other elements */
+}
+
 .boxes .box {
   width: var(--size);
   height: var(--size);
