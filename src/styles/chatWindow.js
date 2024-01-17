@@ -79,8 +79,8 @@ const chatWindow = {
     width: "70rem",
     p: "0rem 0.6rem 0rem 0.6rem",
     fontSize: "0.9rem",
-    // border: "1px solid grey",
-    borderRadius: "2rem",
+    border: "1px solid grey",
+    borderRadius: "3rem",
   },
   button: {
     backgroundColor: "#2155BF",

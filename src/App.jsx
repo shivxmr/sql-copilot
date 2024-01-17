@@ -1,17 +1,19 @@
 // Which actors have the last name 'Bening' ?
+import React, { useState } from "react";
 
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import { Box, TextField } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
+
 
 import chatWindow from "./styles/chatWindow";
-
-import React, { useState } from "react";
-import { Box, TextField } from "@mui/material";
 import { MainNav } from "./components/main-nav";
 import Loader from "./components/loader/loader";
 
+
 function App() {
-  const [query, setQuery] = useState("Default Text");
+  const [query, setQuery] = useState("");
   const [sqlCode, setSqlCode] = useState("");
   const [sqlGenTime, setSqlGenTime] = useState(null);
   const [chatbotRespTime, setChatbotRespTime] = useState(null);
@@ -53,6 +55,17 @@ function App() {
     setLoading(false); // Set loading to false after receiving the response
     setShowContent(true); // Show content after receiving the response
   };
+
+  const rows = data.map((row, index) => ({
+    id: index,
+    firstName: row[0],
+    lastName: row[1],
+  }));
+
+  const columns = [
+    { field: "firstName", headerName: "First Name", flex: 1 },
+    { field: "lastName", headerName: "Last Name", flex: 1 },
+  ];
 
   return (
     <>
@@ -218,7 +231,25 @@ function App() {
                           ml: "1rem",
                         }}
                       >
-                        <table>
+
+                        <DataGrid
+                          rows={rows}
+                          columns={columns}
+                          pageSize={5} // Set your desired page size
+                          checkboxSelection
+                          disableSelectionOnClick
+                          sx={{
+                            boxShadow: 2,
+                            border: 2,
+                            borderColor: "primary.light",
+                            "& .MuiDataGrid-cell:hover": {
+                              color: "primary.main",
+                            },
+                          }}
+                        />
+
+
+                        {/* <table>
                           <thead>
                             <tr>
                               <th>First Name</th>
@@ -233,7 +264,7 @@ function App() {
                               </tr>
                             ))}
                           </tbody>
-                        </table>
+                        </table> */}
                       </Box>
                     </Box>
                   </Box>
@@ -255,7 +286,7 @@ function App() {
               variant="contained"
               sx={{
                 m: "0rem 0rem 0rem 1.5rem",
-                borderRadius: "2rem",
+                borderRadius: "1rem",
               }}
               onClick={handleSubmit}
             >
